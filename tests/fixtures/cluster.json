@@ -1,0 +1,1781 @@
+{
+  "apiVersion": "v1",
+  "kind": "List",
+  "metadata": {
+    "resourceVersion": ""
+  },
+  "items": [
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "web",
+        "namespace": "shop",
+        "uid": "uid-shop-web",
+        "labels": {
+          "app": "web"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 3,
+        "selector": {
+          "matchLabels": {
+            "app": "web"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "web"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "web",
+                "image": "registry.example.com/shop/web:1.4.2",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "256Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        }
+      },
+      "status": {
+        "replicas": 3,
+        "readyReplicas": 3,
+        "observedGeneration": 3
+      }
+    },
+    {
+      "apiVersion": "policy/v1",
+      "kind": "PodDisruptionBudget",
+      "metadata": {
+        "name": "web-pdb",
+        "namespace": "shop"
+      },
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "web"
+          }
+        }
+      },
+      "status": {
+        "currentHealthy": 3,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "web-7d9f8-abcde",
+        "namespace": "shop",
+        "labels": {
+          "app": "web"
+        },
+        "uid": "uid-web-7d9f8-abcde",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "web-7d9f8",
+            "controller": true,
+            "uid": "uid-web-7d9f8"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "web-7d9f8-fghij",
+        "namespace": "shop",
+        "labels": {
+          "app": "web"
+        },
+        "uid": "uid-web-7d9f8-fghij",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "web-7d9f8",
+            "controller": true,
+            "uid": "uid-web-7d9f8"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "web-7d9f8-klmno",
+        "namespace": "shop",
+        "labels": {
+          "app": "web"
+        },
+        "uid": "uid-web-7d9f8-klmno",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "web-7d9f8",
+            "controller": true,
+            "uid": "uid-web-7d9f8"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "web",
+            "image": "registry.example.com/shop/web:1.4.2",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "api",
+        "namespace": "shop",
+        "uid": "uid-shop-api",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 2,
+        "selector": {
+          "matchLabels": {
+            "app": "api",
+            "tier": "backend"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "api",
+              "tier": "backend"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "api",
+                "image": "registry.example.com/shop/api:latest",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "256Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        }
+      },
+      "status": {
+        "replicas": 2,
+        "readyReplicas": 2,
+        "observedGeneration": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "api-5c6b7-pqrst",
+        "namespace": "shop",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "uid": "uid-api-5c6b7-pqrst",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "api-5c6b7",
+            "controller": true,
+            "uid": "uid-api-5c6b7"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "api",
+            "image": "registry.example.com/shop/api:latest",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "ContainersNotReady"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "image": "registry.example.com/shop/api:latest",
+            "ready": false,
+            "restartCount": 14,
+            "started": false,
+            "state": {
+              "waiting": {
+                "reason": "CrashLoopBackOff",
+                "message": "back-off 5m0s restarting failed container=api"
+              }
+            },
+            "lastState": {
+              "terminated": {
+                "reason": "OOMKilled",
+                "exitCode": 137,
+                "startedAt": "2026-11-20T09:14:03Z",
+                "finishedAt": "2026-11-20T09:14:03Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "api-5c6b7-uvwxy",
+        "namespace": "shop",
+        "labels": {
+          "app": "api",
+          "tier": "backend"
+        },
+        "uid": "uid-api-5c6b7-uvwxy",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "api-5c6b7",
+            "controller": true,
+            "uid": "uid-api-5c6b7"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "api",
+            "image": "registry.example.com/shop/api:latest",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "api",
+            "image": "registry.example.com/shop/api:latest",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "worker",
+        "namespace": "shop",
+        "uid": "uid-shop-worker",
+        "labels": {
+          "app": "worker"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "worker"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "worker"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "worker",
+                "image": "registry.example.com/shop/worker",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {},
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log"
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        }
+      },
+      "status": {
+        "replicas": 1,
+        "readyReplicas": 1,
+        "observedGeneration": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "worker-6f8d9-zrtwq",
+        "namespace": "shop",
+        "labels": {
+          "app": "worker"
+        },
+        "uid": "uid-worker-6f8d9-zrtwq",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "worker-6f8d9",
+            "controller": true,
+            "uid": "uid-worker-6f8d9"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "worker",
+            "image": "registry.example.com/shop/worker",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {},
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log"
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Pending",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "ContainersNotReady"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "worker",
+            "image": "registry.example.com/shop/worker",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "waiting": {
+                "reason": "ImagePullBackOff",
+                "message": "Back-off pulling image \"registry.example.com/shop/worker\""
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "db-migrate-28411-abcde",
+        "namespace": "shop",
+        "labels": {
+          "job-name": "db-migrate-28411"
+        },
+        "uid": "uid-db-migrate-28411-abcde",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "Job",
+            "name": "db-migrate-28411",
+            "controller": true,
+            "uid": "uid-db-migrate-28411"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "migrate",
+            "image": "registry.example.com/shop/migrate:1.4.2",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Succeeded",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "PodCompleted"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "migrate",
+            "image": "registry.example.com/shop/migrate:1.4.2",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "terminated": {
+                "reason": "Completed",
+                "exitCode": 0
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "StatefulSet",
+      "metadata": {
+        "name": "ledger-db",
+        "namespace": "payments",
+        "uid": "uid-payments-ledger-db",
+        "labels": {
+          "app": "ledger-db"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 3,
+        "selector": {
+          "matchLabels": {
+            "app": "ledger-db"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "ledger-db"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "postgres",
+                "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "256Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        },
+        "serviceName": "ledger-db"
+      },
+      "status": {
+        "replicas": 3,
+        "readyReplicas": 3,
+        "observedGeneration": 3
+      }
+    },
+    {
+      "apiVersion": "policy/v1",
+      "kind": "PodDisruptionBudget",
+      "metadata": {
+        "name": "ledger-db-pdb",
+        "namespace": "payments"
+      },
+      "spec": {
+        "minAvailable": 2,
+        "selector": {
+          "matchExpressions": [
+            {
+              "key": "app",
+              "operator": "In",
+              "values": [
+                "ledger-db"
+              ]
+            }
+          ]
+        }
+      },
+      "status": {
+        "currentHealthy": 3,
+        "desiredHealthy": 2,
+        "disruptionsAllowed": 1,
+        "expectedPods": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "ledger-db-0",
+        "namespace": "payments",
+        "labels": {
+          "app": "ledger-db"
+        },
+        "uid": "uid-ledger-db-0",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "ledger-db",
+            "controller": true,
+            "uid": "uid-ledger-db"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "ledger-db-1",
+        "namespace": "payments",
+        "labels": {
+          "app": "ledger-db"
+        },
+        "uid": "uid-ledger-db-1",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "ledger-db",
+            "controller": true,
+            "uid": "uid-ledger-db"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "ledger-db-2",
+        "namespace": "payments",
+        "labels": {
+          "app": "ledger-db"
+        },
+        "uid": "uid-ledger-db-2",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "ledger-db",
+            "controller": true,
+            "uid": "uid-ledger-db"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "postgres",
+            "image": "registry.example.com/db/postgres:16.4@sha256:3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f3f",
+            "ready": true,
+            "restartCount": 7,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {
+              "terminated": {
+                "reason": "Error",
+                "exitCode": 1,
+                "startedAt": "2026-11-20T09:14:03Z",
+                "finishedAt": "2026-11-20T09:14:03Z"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "StatefulSet",
+      "metadata": {
+        "name": "cache",
+        "namespace": "payments",
+        "uid": "uid-payments-cache",
+        "labels": {
+          "app": "cache"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "cache"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "cache"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "redis",
+                "image": "registry.example.com/cache/redis:7.2.5",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        },
+        "serviceName": "cache"
+      },
+      "status": {
+        "replicas": 1,
+        "readyReplicas": 1,
+        "observedGeneration": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "cache-0",
+        "namespace": "payments",
+        "labels": {
+          "app": "cache"
+        },
+        "uid": "uid-cache-0",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "StatefulSet",
+            "name": "cache",
+            "controller": true,
+            "uid": "uid-cache"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "redis",
+            "image": "registry.example.com/cache/redis:7.2.5",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "True"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "redis",
+            "image": "registry.example.com/cache/redis:7.2.5",
+            "ready": true,
+            "restartCount": 0,
+            "started": true,
+            "state": {
+              "running": {
+                "startedAt": "2026-11-20T09:14:03Z"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "policy/v1",
+      "kind": "PodDisruptionBudget",
+      "metadata": {
+        "name": "old-ledger-pdb",
+        "namespace": "payments"
+      },
+      "spec": {
+        "minAvailable": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "ledger"
+          }
+        }
+      },
+      "status": {
+        "currentHealthy": 3,
+        "desiredHealthy": 1,
+        "disruptionsAllowed": 1,
+        "expectedPods": 3
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "debug-shell",
+        "namespace": "payments",
+        "labels": {
+          "run": "debug-shell"
+        },
+        "uid": "uid-debug-shell",
+        "creationTimestamp": "2026-11-20T09:14:03Z"
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "shell",
+            "image": "busybox",
+            "command": [
+              "sleep",
+              "3600"
+            ],
+            "resources": {}
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Pending",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "ContainersNotReady"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "shell",
+            "image": "busybox",
+            "ready": false,
+            "restartCount": 0,
+            "started": false,
+            "state": {
+              "waiting": {
+                "reason": "ContainerCreating"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "Pod",
+      "metadata": {
+        "name": "coredns-787d4945fb-xk2lp",
+        "namespace": "kube-system",
+        "labels": {
+          "k8s-app": "kube-dns"
+        },
+        "uid": "uid-coredns-787d4945fb-xk2lp",
+        "creationTimestamp": "2026-11-20T09:14:03Z",
+        "ownerReferences": [
+          {
+            "apiVersion": "apps/v1",
+            "kind": "ReplicaSet",
+            "name": "coredns-787d4945fb",
+            "controller": true,
+            "uid": "uid-coredns-787d4945fb"
+          }
+        ]
+      },
+      "spec": {
+        "containers": [
+          {
+            "name": "coredns",
+            "image": "registry.k8s.io/coredns/coredns:v1.11.1",
+            "ports": [
+              {
+                "containerPort": 8080,
+                "protocol": "TCP"
+              }
+            ],
+            "resources": {
+              "requests": {
+                "cpu": "100m",
+                "memory": "128Mi"
+              },
+              "limits": {
+                "cpu": "500m",
+                "memory": "256Mi"
+              }
+            },
+            "imagePullPolicy": "IfNotPresent",
+            "terminationMessagePath": "/dev/termination-log",
+            "readinessProbe": {
+              "httpGet": {
+                "path": "/ready",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            },
+            "livenessProbe": {
+              "httpGet": {
+                "path": "/healthz",
+                "port": 8080
+              },
+              "periodSeconds": 10,
+              "timeoutSeconds": 1,
+              "failureThreshold": 3
+            }
+          }
+        ],
+        "nodeName": "worker-1.example.com"
+      },
+      "status": {
+        "phase": "Running",
+        "conditions": [
+          {
+            "type": "Initialized",
+            "status": "True"
+          },
+          {
+            "type": "Ready",
+            "status": "False",
+            "reason": "ContainersNotReady"
+          },
+          {
+            "type": "PodScheduled",
+            "status": "True"
+          }
+        ],
+        "hostIP": "10.0.0.11",
+        "podIP": "10.128.2.15",
+        "startTime": "2026-11-20T09:14:03Z",
+        "containerStatuses": [
+          {
+            "name": "coredns",
+            "image": "registry.k8s.io/coredns/coredns:v1.11.1",
+            "ready": false,
+            "restartCount": 9,
+            "started": false,
+            "state": {
+              "waiting": {
+                "reason": "CrashLoopBackOff"
+              }
+            },
+            "lastState": {}
+          }
+        ]
+      }
+    },
+    {
+      "apiVersion": "apps/v1",
+      "kind": "Deployment",
+      "metadata": {
+        "name": "thanos-querier",
+        "namespace": "openshift-monitoring",
+        "uid": "uid-openshift-monitoring-thanos-querier",
+        "labels": {
+          "app": "thanos-querier"
+        },
+        "generation": 3,
+        "creationTimestamp": "2026-10-02T11:40:00Z"
+      },
+      "spec": {
+        "replicas": 1,
+        "selector": {
+          "matchLabels": {
+            "app": "thanos-querier"
+          }
+        },
+        "template": {
+          "metadata": {
+            "labels": {
+              "app": "thanos-querier"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "thanos",
+                "image": "quay.io/thanos/thanos:v0.35.1",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ],
+                "resources": {
+                  "requests": {
+                    "cpu": "100m",
+                    "memory": "128Mi"
+                  },
+                  "limits": {
+                    "cpu": "500m",
+                    "memory": "256Mi"
+                  }
+                },
+                "imagePullPolicy": "IfNotPresent",
+                "terminationMessagePath": "/dev/termination-log",
+                "readinessProbe": {
+                  "httpGet": {
+                    "path": "/ready",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                },
+                "livenessProbe": {
+                  "httpGet": {
+                    "path": "/healthz",
+                    "port": 8080
+                  },
+                  "periodSeconds": 10,
+                  "timeoutSeconds": 1,
+                  "failureThreshold": 3
+                }
+              }
+            ],
+            "restartPolicy": "Always"
+          }
+        }
+      },
+      "status": {
+        "replicas": 1,
+        "readyReplicas": 1,
+        "observedGeneration": 3
+      }
+    }
+  ]
+}
